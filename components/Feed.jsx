@@ -1,3 +1,4 @@
+import Input from './Input';
 import { SparklesIcon } from '@heroicons/react/24/outline';
 
 const Feed = () => {
@@ -9,6 +10,8 @@ const Feed = () => {
           <SparklesIcon className="h-5 text-white" />
         </div>
       </div>
+
+      <Input />
     </div>
   );
 };
