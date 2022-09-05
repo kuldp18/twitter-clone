@@ -6,6 +6,9 @@ import {
   CalendarDaysIcon,
 } from '@heroicons/react/24/outline';
 import { useState, useRef } from 'react';
+import data from '@emoji-mart/data';
+import Picker from '@emoji-mart/react';
+
 const Input = () => {
   const [input, setInput] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
@@ -13,6 +16,10 @@ const Input = () => {
   const filePickerRef = useRef(null);
 
   const addImageToPost = () => {
+    //
+  };
+
+  const addEmoji = () => {
     //
   };
 
@@ -77,12 +84,17 @@ const Input = () => {
             <div className="icon">
               <CalendarDaysIcon className="text-[#1d9bf0] h-[22px]" />
             </div>
-
-            {/* {showEmojis && (
-
-            )} */}
           </div>
         </div>
+        {showEmojis && (
+          <Picker
+            // onSelect={addEmoji}
+            data={data}
+            theme="dark"
+            emojiSize={18}
+            emojiButtonSize={30}
+          />
+        )}
       </div>
     </div>
   );
