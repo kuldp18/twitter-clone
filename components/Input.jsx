@@ -13,6 +13,7 @@ const Input = () => {
   const [input, setInput] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
   const [showEmojis, setShowEmojis] = useState(false);
+  const [loading, setLoading] = useState(false);
   const filePickerRef = useRef(null);
 
   const addImageToPost = () => {
@@ -20,7 +21,9 @@ const Input = () => {
   };
 
   const sendPost = () => {
-    //
+    // Sending the post to firebase
+    if (loading) return;
+    setLoading(true);
   };
 
   const addEmoji = (e) => {
