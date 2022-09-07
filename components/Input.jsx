@@ -19,8 +19,12 @@ const Input = () => {
     //
   };
 
-  const addEmoji = () => {
-    //
+  const addEmoji = (e) => {
+    let sym = e.unified.split('-');
+    let codesArray = [];
+    sym.forEach((el) => codesArray.push('0x' + el));
+    let emoji = String.fromCodePoint(...codesArray);
+    setInput(input + emoji);
   };
 
   return (
@@ -88,7 +92,7 @@ const Input = () => {
         </div>
         {showEmojis && (
           <Picker
-            // onSelect={addEmoji}
+            onEmojiSelect={addEmoji}
             data={data}
             theme="dark"
             emojiSize={18}
