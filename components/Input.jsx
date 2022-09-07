@@ -5,7 +5,20 @@ import {
   FaceSmileIcon,
   CalendarDaysIcon,
 } from '@heroicons/react/24/outline';
+
 import { useState, useRef } from 'react';
+
+import { db, storage } from '../firebase';
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from '@firebase/firestore';
+
+import { getDownloadURL, ref, uploadString } from '@firebase/storage';
+
 import data from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
 
@@ -20,10 +33,35 @@ const Input = () => {
     //
   };
 
-  const sendPost = () => {
+  const sendPost = async () => {
     // Sending the post to firebase
     if (loading) return;
     setLoading(true);
+
+    const docRef = await addDoc(collection(db, 'posts'), {
+      // id: session.user.uid,
+      // username: session.user.name,
+      // userImg: session.user.image,
+      // tag: session.user.tag,
+      text: input,
+      timestamp: serverTimestamp(),
+    });
+
+    const imageRef = ref(storage, `posts/${docRef.id}/image`);
+
+    if (selectedFile) {
+      await uploadString(imageRef, selectedFile, 'data_url').then(async () => {
+        const downloadUrl = await getDownloadURL(imageRef);
+        await updateDoc(doc(db, 'posts', docRef.id), {
+          image: downloadUrl,
+        });
+      });
+    }
+
+    setLoading(false);
+    setInput('');
+    setSelectedFile(null);
+    setShowEmojis(false);
   };
 
   const addEmoji = (e) => {
