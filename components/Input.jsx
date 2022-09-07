@@ -84,7 +84,7 @@ const Input = () => {
     <div
       className={`border-b border-gray-700 p-3 flex space-x-3 overflow-y-scroll ${
         loading && 'opacity-60'
-      }`}
+      } scrollbar-hide`}
     >
       <img
         src="https://pbs.twimg.com/profile_images/1539218328270835712/IpqTJMJj_400x400.jpg"
@@ -100,7 +100,7 @@ const Input = () => {
             rows="2"
             placeholder="What's happening?"
             className="bg-transparent outline-none text-[#d9d9d9]
-            text-lg placeholder-gray-500 tracking-wide w-full min-h-[60px]"
+            text-lg placeholder-gray-500 tracking-wide w-full min-h-[60px] scrollbar-hide"
           />
 
           {selectedFile && (
