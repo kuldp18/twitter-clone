@@ -22,12 +22,15 @@ import { getDownloadURL, ref, uploadString } from '@firebase/storage';
 import data from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
 
+import { useSession } from 'next-auth/react';
+
 const Input = () => {
   const [input, setInput] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
   const [showEmojis, setShowEmojis] = useState(false);
   const [loading, setLoading] = useState(false);
   const filePickerRef = useRef(null);
+  const { data: session } = useSession();
 
   const addImageToPost = (e) => {
     // preview the tweet image
@@ -47,10 +50,10 @@ const Input = () => {
     setLoading(true);
 
     const docRef = await addDoc(collection(db, 'posts'), {
-      // id: session.user.uid,
-      // username: session.user.name,
-      // userImg: session.user.image,
-      // tag: session.user.tag,
+      id: session.user.uid,
+      username: session.user.name,
+      userImg: session.user.image,
+      tag: session.user.tag,
       text: input,
       timestamp: serverTimestamp(),
     });
@@ -87,8 +90,8 @@ const Input = () => {
       } scrollbar-hide`}
     >
       <img
-        src="https://pbs.twimg.com/profile_images/1539218328270835712/IpqTJMJj_400x400.jpg"
-        alt=""
+        src={session.user.image}
+        alt={session.user.name}
         className="h-11 w-11 rounded-full cursor-pointer"
       />
 
