@@ -136,6 +136,7 @@ const Input = () => {
                     hidden
                     onChange={addImageToPost}
                     ref={filePickerRef}
+                    accept="image/*"
                   />
                 </div>
 

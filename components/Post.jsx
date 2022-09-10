@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   EllipsisHorizontalIcon,
   ChatBubbleLeftIcon,
@@ -37,8 +37,38 @@ const Post = ({ id, post, postPage }) => {
   const [liked, setLiked] = useState(false);
   const router = useRouter();
 
+  // check if liked or not
+  useEffect(
+    () =>
+      setLiked(
+        likes.findIndex((like) => like.id === session?.user?.uid) !== -1
+      ),
+    [likes]
+  );
+  // fetch and set likes
+  useEffect(
+    () =>
+      onSnapshot(collection(db, 'posts', id, 'likes'), (snapshot) =>
+        setLikes(snapshot.docs)
+      ),
+    [db, id]
+  );
+
+  const likePost = async () => {
+    if (liked) {
+      await deleteDoc(doc(db, 'posts', id, 'likes', session.user.uid));
+    } else {
+      await setDoc(doc(db, 'posts', id, 'likes', session.user.uid), {
+        username: session.user.name,
+      });
+    }
+  };
+
   return (
-    <div className="p-3 flex cursor-pointer border-b border-gray-700">
+    <div
+      className="p-3 flex cursor-pointer border-b border-gray-700"
+      onClick={() => router.push(`/${id}`)}
+    >
       {!postPage && (
         <img
           src={post?.userImg}
@@ -70,12 +100,11 @@ const Post = ({ id, post, postPage }) => {
               >
                 @{post?.tag}
               </span>
-            </div>
-
+            </div>{' '}
+            &#8226;{' '}
             <span className="hover:underline text-sm sm:text-[15px]">
-              {/* <Moment fromNow={post?.timestamp?.toDate()}></Moment> */}
+              <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
             </span>
-
             {!postPage && (
               <p className="text-[#d9d9d9] text-[15px] sm:text-base mt-0.5">
                 {post?.text}
