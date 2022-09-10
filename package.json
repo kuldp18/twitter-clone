@@ -14,10 +14,13 @@
     "@heroicons/react": "^2.0.10",
     "emoji-mart": "^5.2.1",
     "firebase": "^9.9.4",
+    "moment": "^2.29.4",
     "next": "12.2.5",
     "next-auth": "^4.10.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-moment": "^1.1.2",
+    "recoil": "^0.7.5",
     "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {
