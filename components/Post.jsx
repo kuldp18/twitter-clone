@@ -53,6 +53,20 @@ const Post = ({ id, post, postPage }) => {
       ),
     [db, id]
   );
+  // fetch and set comments
+  useEffect(
+    () =>
+      onSnapshot(
+        query(
+          collection(db, 'posts', id, 'comments'),
+          orderBy('timestamp', 'desc')
+        ),
+        (snapshot) => {
+          setComments(snapshot.docs);
+        }
+      ),
+    [db, id]
+  );
 
   const likePost = async () => {
     if (liked) {
