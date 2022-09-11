@@ -104,11 +104,13 @@ export async function getServerSideProps(context) {
   )
     .then((res) => res.json())
     .catch((err) => console.log(err));
-  // const followResults = await fetch('https://jsonkeeper.com/b/WWMJ')
-  //   .then((res) => res.json())
-  //   .catch((err) => console.log(err));
 
-  const followResults = 'Follow Results';
+  const followResults = await fetch(
+    'https://api.npoint.io/cf0e4308764005b8c1b6'
+  )
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
+
   const providers = await getProviders();
   const session = await getSession(context);
 
