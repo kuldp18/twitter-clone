@@ -18,6 +18,7 @@ import {
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import Post from '../components/Post';
 import Comment from '../components/Comment';
+import Widgets from '../components/Widgets';
 
 const PostPage = ({ trendingResults, followResults, providers }) => {
   const router = useRouter();
@@ -87,7 +88,10 @@ const PostPage = ({ trendingResults, followResults, providers }) => {
             </div>
           )}
         </div>
-
+        <Widgets
+          trendingResults={trendingResults}
+          followResults={followResults}
+        />
         {isOpen && <Modal />}
       </main>
     </div>
@@ -95,14 +99,15 @@ const PostPage = ({ trendingResults, followResults, providers }) => {
 };
 
 export async function getServerSideProps(context) {
-  // const trendingResults = await fetch('https://jsonkeeper.com/b/NKEV')
-  //   .then((res) => res.json())
-  //   .catch((err) => console.log(err));
+  const trendingResults = await fetch(
+    'https://api.npoint.io/ebf37fd9701081fbb44f'
+  )
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
   // const followResults = await fetch('https://jsonkeeper.com/b/WWMJ')
   //   .then((res) => res.json())
   //   .catch((err) => console.log(err));
 
-  const trendingResults = 'Treanding Results';
   const followResults = 'Follow Results';
   const providers = await getProviders();
   const session = await getSession(context);
