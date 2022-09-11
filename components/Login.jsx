@@ -1,9 +1,15 @@
 import { signIn } from 'next-auth/react';
+import Head from 'next/head';
 import Image from 'next/image';
 
 const Login = ({ providers }) => {
   return (
     <div className="flex flex-col items-center space-y-20 pt-48">
+      <Head>
+        <title>Login on Twitter</title>
+        <meta name="description" content="Clone of Twitter.com" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Image
         src="https://rb.gy/ogau5a"
         width={150}
